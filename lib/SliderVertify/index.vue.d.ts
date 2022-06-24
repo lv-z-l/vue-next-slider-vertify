@@ -55,7 +55,6 @@ declare const _sfc_main: import('vue').DefineComponent<
     }
   },
   {
-    name: string
     isLoading: import('vue').Ref<boolean>
     sliderLeft: import('vue').Ref<number>
     sliderClass: import('vue').Ref<string>

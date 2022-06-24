@@ -16,7 +16,6 @@
     "prepare": "husky install"
   },
   "files": [
-    "",
     "/lib",
     "README.md"
   ],

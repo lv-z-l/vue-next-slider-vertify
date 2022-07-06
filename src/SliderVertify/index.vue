@@ -14,7 +14,7 @@
     <div
       :class="sliderClass"
       :style="{
-        pointerEvents: isLoading ? 'none' : 'auto',
+        pointerEvents: state === 0 ? 'none' : 'auto',
         width: width + 'px'
       }"
     >
@@ -49,11 +49,22 @@
       :style="{
         width: width + 'px',
         height: height + 'px',
-        display: isLoading ? '' : 'none'
+        display: state === 0 ? '' : 'none'
       }"
     >
-      <div class="loadingIcon"></div>
+      <img class="loadingIcon" :src="loadingIcon" alt="icon" />
       <span>加载中...</span>
+    </div>
+    <div
+      class="loading-container"
+      :style="{
+        width: width + 'px',
+        height: height + 'px',
+        display: state !== 0 && vertifySuccess !== 0 ? '' : 'none'
+      }"
+    >
+      <img :src="vertifySuccess === 1 ? successIcon : errorIcon" alt="icon" />
+      <span>{{ vertifySuccess === 1 ? '验证成功' : '验证失败' }}</span>
     </div>
   </div>
 </template>
@@ -61,6 +72,9 @@
 import { VertifyType } from './types/props'
 import { ref, watchEffect } from 'vue'
 import { getRandomNumberByRange, sum, square } from './utils/index'
+import successIcon from '../assets/images/emotion-happy.svg'
+import errorIcon from '../assets/images/emotion-unhappy.svg'
+import loadingIcon from '../assets/images/loading-three.svg'
 const {
   width = 320,
   height = 160,
@@ -138,7 +152,7 @@ const {
   onRefresh?(): void
 }>()
 
-const isLoading = ref(false)
+const state = ref(0) // 0:loading 1:success
 const sliderLeft = ref(0)
 const sliderClass = ref('slider-container')
 const textTip = ref(text)
@@ -151,11 +165,12 @@ const originXRef = ref(0)
 const originYRef = ref(0)
 const xRef = ref(0)
 const yRef = ref(0)
+const vertifySuccess = ref(0)
 const PI = Math.PI
 const L = l + r * 2 + 3 // 滑块实际边长
 
-function setLoading(loading: boolean): void {
-  isLoading.value = loading
+function setState(s: number): void {
+  state.value = s
 }
 function setSliderLeft(sliderleft: number): void {
   sliderLeft.value = sliderleft
@@ -251,7 +266,7 @@ watchEffect(() => {
 
 function initImg() {
   const img = createImg(() => {
-    setLoading(false)
+    setState(1)
     draw(img)
   })
   imgRef.value = img
@@ -275,7 +290,8 @@ function reset() {
   blockCtx.clearRect(0, 0, width, height)
 
   // 重新加载图片
-  setLoading(true)
+  setState(0)
+  vertifySuccess.value = 0
   imgRef.value && (imgRef.value.src = getRandomImgSrc())
 }
 
@@ -340,9 +356,11 @@ function handleDragEnd(e: any) {
   const { spliced, verified } = onCustomVertify ? onCustomVertify(verify()) : verify()
   if (spliced) {
     if (verified) {
+      vertifySuccess.value = 1
       setSliderClass('slider-container slider-container_success')
       typeof onSuccess === 'function' && onSuccess()
     } else {
+      vertifySuccess.value = 2
       setSliderClass('slider-container slider-container_fail')
       textTip.value = '请再试一次'
       reset()

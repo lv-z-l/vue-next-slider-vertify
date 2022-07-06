@@ -19,10 +19,10 @@
     width: 310px;
     height: 40px;
     line-height: 40px;
-    margin-top: 15px;
     background: #f7f9fa;
     color: #45494c;
     border: 1px solid #e4e7eb;
+    box-sizing: border-box;
   }
 
   .slider-container_active .slider {
@@ -84,6 +84,7 @@
     height: 40px;
     border: 0 solid #486cd6;
     background: #d1e9fe;
+    box-sizing: border-box;
   }
 
   .slider {
@@ -91,10 +92,11 @@
     top: 0;
     left: 0;
     width: 40px;
-    height: 40px;
+    height: 38px;
     background: #fff;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     transition: background 0.2s linear;
+    box-sizing: border-box;
     cursor: pointer;
     cursor: grab;
   }
@@ -146,7 +148,6 @@
     width: 32px;
     height: 32px;
     margin-bottom: 10px;
-    background: url(http://cdn.dooring.cn/dr/icon12.png);
     background-size: 32px;
     animation: loading-icon-rotate 0.8s linear infinite;
   }

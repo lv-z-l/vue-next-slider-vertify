@@ -55,7 +55,7 @@ declare const _sfc_main: import('vue').DefineComponent<
     }
   },
   {
-    isLoading: import('vue').Ref<boolean>
+    state: import('vue').Ref<number>
     sliderLeft: import('vue').Ref<number>
     sliderClass: import('vue').Ref<string>
     textTip: import('vue').Ref<string>
@@ -68,9 +68,10 @@ declare const _sfc_main: import('vue').DefineComponent<
     originYRef: import('vue').Ref<number>
     xRef: import('vue').Ref<number>
     yRef: import('vue').Ref<number>
+    vertifySuccess: import('vue').Ref<number>
     PI: number
     L: number
-    setLoading: (loading: boolean) => void
+    setState: (s: number) => void
     setSliderLeft: (sliderleft: number) => void
     setSliderClass: (sliderclass: string) => void
     drawPath: (ctx: any, x: number, y: number, operation: 'fill' | 'clip') => void
@@ -84,6 +85,9 @@ declare const _sfc_main: import('vue').DefineComponent<
     handleDragStart: (e: any) => void
     handleDragMove: (e: any) => false | undefined
     handleDragEnd: (e: any) => false | undefined
+    successIcon: string
+    errorIcon: string
+    loadingIcon: string
   },
   unknown,
   {},

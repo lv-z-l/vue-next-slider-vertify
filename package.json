@@ -5,6 +5,10 @@
   "module": "lib/index.es.js",
   "types": "lib/index.d.ts",
   "author": "lvzl <627417163@qq.com>",
+  "repository": {
+    "type": "github",
+    "url": "https://github.com/lv-z-l/vue-next-slider-vertify"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc --noEmit && vite build",
